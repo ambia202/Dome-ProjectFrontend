@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>hahaha</title>
+ <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<h3>Device info</h3>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqtree/1.4.6/tree.jquery.js" type="text/javascript">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/device.js/0.2.7/device.min.js"></script>
+
+<style>
+    .fieldName {
+        display: inline-block;
+        line-height: 140%;
+        font-weight: bold
+    }
+</style>
+<div id="idResult"></div>
+
+<script>
+    function getInfo() {
+        var _str = "";
+        var _list = [];
+        _list.push("class:device:desktop");
+        _list.push("class:device:tablet");
+        _list.push("class:device:mobile");
+        _list.push("type:device:ipad");
+        _list.push("type:device:iphone");
+        _list.push("type:device:ipod");
+        _list.push("type:device:androidPhone:Android Phone");
+        _list.push("type:device:androidTablet:Android Tablet");
+        _list.push("type:device:windowsPhone:Windows Phone");
+        _list.push("type:device:windowsTablet:Windows Tablet");
+        _list.push("type:device:blackberryPhone:Blackberry Phone");
+        _list.push("type:device:blackberryTablet:blackberry Tablet");
+        _list.push("type:device:fxosPhone:Firefox OS Phone");
+        _list.push("type:device:fxosTablet:Firefox OS Tablet");
+        _list.push("type:device:meego:MeeGo");
+        _list.push("type:device:television:Television");
+        _list.push("user-agent:navigator:userAgent:User agent");
+        _list.push("platform:navigator:platform");
+        _list.push("screen width:screen:width");
+        _list.push("screen height:screen:height");
+        _list.push("orientation:device:landscape");
+        _list.push("orientation:device:portrait");
+        _list.push("device pixel ratio:window:devicePixelRatio");
+        for (var _i in _list) {
+            var _spl = _list[_i].split(":");
+            var _field = _spl[0];
+            var _func = _spl[1];
+            var _val = _spl[2];
+            var _add = _spl[3];
+            var _value = _val;
+            if (_add) {
+                _value = _add;
+            }
+            if (_func == 'device') {
+                if (window[_func][_val]()) {
+                    _str += '<div class="fieldName">' + _field + ':</div> ' + _value + '<br>';
+                }
+            } else {
+                _str += '<div class="fieldName">' + _field + ':</div> ' + window[_func][_val] + '<br>';
+            }
+        }
+        return _str;
+    }
+    try {
+        document.getElementById('idResult').innerHTML = getInfo();
+    } catch (e) {
+        document.getElementById('idResult').innerHTML = e;
+    }
+</script>
+</head>
+<body>
+</body>
+</html>
